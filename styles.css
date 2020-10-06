@@ -21,6 +21,7 @@ body {
   display: block;
   width: 51%;
   margin: auto;
+  user-select:none;
 }
 
 .btn {
