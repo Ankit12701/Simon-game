@@ -8,23 +8,28 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).keypress(function() {
+function start() {
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
     started = true;
   }
-});
+}
+
+$(document).keypress(start);
 
 $(".btn").click(function() {
+  if (started) {
+    var userChosenColour = $(this).attr("id");
+    userClickedPattern.push(userChosenColour);
 
-  var userChosenColour = $(this).attr("id");
-  userClickedPattern.push(userChosenColour);
+    playSound(userChosenColour);
+    animatePress(userChosenColour);
 
-  playSound(userChosenColour);
-  animatePress(userChosenColour);
-
-  checkAnswer(userClickedPattern.length-1);
+    checkAnswer(userClickedPattern.length-1);
+  } else {
+    start();
+  }
 });
 
 function checkAnswer(currentLevel) {
